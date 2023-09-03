@@ -1,0 +1,9 @@
+.header {
+    background-color: rgba(151, 151, 151, 0.781);
+    padding: 10px;
+    
+}
+.header__container{
+   display: flex;
+   flex-direction: row;
+}
