@@ -1,0 +1,6 @@
+.nav__ul{
+    display: flex;
+    justify-content: space-between;
+    column-gap: 30px;
+    align-items: center;
+}

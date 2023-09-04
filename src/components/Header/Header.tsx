@@ -2,18 +2,20 @@ import React, { FC } from 'react'
 import LogoDevIcon from '@mui/icons-material/LogoDev';
 import './style.css'
 import Nav from './nav/Nav';
-import { Container } from '@mui/material';
 
-export default function Header() {
+
+const Header: FC = () => {
     
 
   return (
     <section className='header'>
-      <Container maxWidth="lg" className='header__container'>
-        <LogoDevIcon />
+      <section className='content__container header__container'>
+        <LogoDevIcon className='logo__icon'/>
         <Nav />
-      </Container>
+      </section>
     </section>
       
   )
 }
+
+export default Header

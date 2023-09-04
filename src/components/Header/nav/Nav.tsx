@@ -1,13 +1,18 @@
-import React from 'react'
+import React, { FC } from 'react'
 import Button from '@mui/material/Button';
+import './style.css'
 
-export default function Nav() {
+
+const Nav: FC = () => {
+
+  
   return (
     <nav>
-        <ul>
-            <li className='login'><a href="#"><Button variant="contained">Hello world</Button></a></li>
-            <li className='logout'><a href="#">Log Out</a></li>
+        <ul className='nav__ul'>
+            <li className='login'><a href="#"><Button variant="contained">Log In</Button></a></li>
+            <li className='logout'><a href="#"><Button variant="text">Log Out</Button></a></li>
         </ul>      
     </nav>
   )
 }
+export default Nav
