@@ -26,4 +26,18 @@ const GET_USER = async (id) => {
     
 } 
 
-export { GET_USER, GET_USERS};
+const CREATE_POST = async (userId, post) => {
+
+    await axios.put(URL + '/' + userId, post).then(res => console.log(res))
+
+}
+
+const ADD_COMMENT = async (commenterId, posterId, commentsArr, newPostsArr) => {
+
+    await axios.put(URL + "/" + commenterId, commentsArr);
+
+    await axios.put(URL + "/" + posterId, newPostsArr);
+    
+};
+
+export { GET_USER, GET_USERS, CREATE_POST, ADD_COMMENT };
