@@ -1,22 +1,37 @@
 import React from 'react'
-import styles from './styles.module.css'
+import styles from './style.module.css'
 import { Formik } from "formik";
-import {Button, TextField} from "@mui/material";
+import { Button, TextField } from "@mui/material";
 
-export default function Login() {
+export default function Register() {
   return (
-    <section className={styles.login}>
+    <section className={styles.register}>
       <section className={styles.container}>
         <Formik
-          initialValues={{ email: "", password: "" }}
+          initialValues={{
+            name: "",
+            email: "",
+            password: "",
+            passwordVerify: "",
+          }}
           validate={(values) => {
             const errors = {};
             if (!values.email) {
-              errors.email = "Required";
+              errors.email = "Required Email";
             } else if (
               !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
             ) {
               errors.email = "Invalid email address";
+            }
+
+            if (!values.name) {
+              errors.name = "Required Name";
+            } else if (values.name.length < 2) {
+              errors.name = "Name length 2+";
+            }
+
+            if (values.passwordVerify !== values.password) {
+              errors.passwordVerify = "Password don`t match";
             }
             return errors;
           }}
@@ -38,6 +53,15 @@ export default function Login() {
           }) => (
             <form onSubmit={handleSubmit} className={styles.formBox}>
               <TextField
+                type="name"
+                name="name"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.name}
+                placeholder="name"
+              />
+              {errors.name && touched.name && errors.name}
+              <TextField
                 type="email"
                 name="email"
                 onChange={handleChange}
@@ -55,6 +79,17 @@ export default function Login() {
                 placeholder="Password"
               />
               {errors.password && touched.password && errors.password}
+              <TextField
+                type="password"
+                name="passwordVerify"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.passwordVerify}
+                placeholder="Password Verify"
+              />
+              {errors.passwordVerify &&
+                touched.passwordVerify &&
+                errors.passwordVerify}
               <Button
                 variant="contained"
                 color="success"
@@ -63,9 +98,6 @@ export default function Login() {
                 className={styles.loginButton}
                 size="large"
               >
-                Log In
-              </Button>
-              <Button variant="contained" color="error" size="small">
                 Register
               </Button>
             </form>
