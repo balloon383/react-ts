@@ -1,8 +1,7 @@
 import axios from 'axios'
 
 const URL = "https://64f5acbd2b07270f705d8683.mockapi.io/users";
-
-const GET_USERS = async () => {
+const getUsers = async () => {
 
     let result
     
@@ -14,7 +13,7 @@ const GET_USERS = async () => {
     
 } 
 
-const GET_USER = async (id) => {
+const getUser = async (id) => {
 
     let result
     
@@ -26,13 +25,13 @@ const GET_USER = async (id) => {
     
 } 
 
-const CREATE_POST = async (userId, post) => {
+const createPost = async (userId, post) => {
 
     await axios.put(URL + '/' + userId, post).then(res => console.log(res))
 
 }
 
-const ADD_COMMENT = async (commenterId, posterId, commentsArr, newPostsArr) => {
+const addComment = async (commenterId, posterId, commentsArr, newPostsArr) => {
 
     await axios.put(URL + "/" + commenterId, commentsArr);
 
@@ -40,6 +39,8 @@ const ADD_COMMENT = async (commenterId, posterId, commentsArr, newPostsArr) => {
     
 };
 
+const changeStatus = async (id) => {
+    console.log(id)
+}
 
-
-export { GET_USER, GET_USERS, CREATE_POST, ADD_COMMENT };
+export { getUser, getUsers, createPost, addComment, changeStatus  };

@@ -2,8 +2,47 @@ import React from 'react'
 import styles from './styles.module.css'
 import { Formik } from "formik";
 import {Button, TextField} from "@mui/material";
+import { useDispatch } from "react-redux";
+import {getUsers, changeStatus} from '../../api/api.js'
+import setUserAction from '../../redux/actions/userActions.js'
+
 
 export default function Login() {
+
+
+  const dispatch = useDispatch()
+  
+
+async function checkUser(email, password) {
+    let usersArr = await getUsers();
+    let errors = {}
+    const userCheck = usersArr.find((el) => el.email === email);
+    if (!userCheck) {
+        errors.email = "Invalid email address"
+        return errors
+      }
+      
+    if (userCheck.password !== password) {
+        errors.password = <p>Invalid password</p>
+        return errors
+      }
+      
+    const user = await changeStatus(userCheck, "true");
+    localStorage.setItem(
+      "loggedUser",
+      JSON.stringify({
+        email: user.email,
+        id: user.id,
+        posts: user.posts || [], 
+        comments: user.comments || []
+      })
+    );
+      console.log(user)
+    //dispatch(setUserAction(user));
+    //setRedirect('true')
+    return {}
+  }
+
   return (
     <section className={styles.login}>
       <section className={styles.container}>
@@ -18,7 +57,16 @@ export default function Login() {
             ) {
               errors.email = "Invalid email address";
             }
+            if (!values.password) {
+              errors.password = 'Enter your password!'
+            }
+
+            if(Object.keys(errors).length === 0){
+                let loginValidation = checkUser(values.email, values.password)
+                errors = loginValidation
+            }
             return errors;
+
           }}
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
